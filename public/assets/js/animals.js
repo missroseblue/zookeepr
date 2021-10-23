@@ -36,8 +36,9 @@ const getAnimals = (formData = {}) => {
   Object.entries(formData).forEach(([key, value]) => {
     queryUrl += `${key}=${value}&`;
   });
-
   console.log(queryUrl);
+
+  //added during lesson
   fetch(queryUrl)
   .then(response => {
     if (!response.ok) {

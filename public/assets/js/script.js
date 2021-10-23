@@ -28,6 +28,7 @@ const handleAnimalFormSubmit = (event) => {
   }
   const animalObject = { name, species, diet, personalityTraits };
 
+  //added during lesson
   fetch("/api/animals", {
     method: "POST",
     headers: {
