@@ -1,15 +1,18 @@
-const express = require("express");
-const { animals } = require("./data/animals");
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+const { animals } = require('./data/animals');
+
 const PORT = process.env.PORT || 3001;
 const app = express();
-const fs = require("fs");
-const path = require("path");
-const { type } = require("os");
 
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+
+//middleware that instructs the server to make certain files readily available and to not gate it behind a server endpoint
+app.use(express.static('public'));
 
 function filterByQuery(query, animalsArray) {
   let personalityTraitsArray = [];
@@ -104,7 +107,25 @@ app.get("/api/animals/:id", (req, res) => {
   }
 });
 
+//route 3 - links index.html (the main html page)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
+//route 4 - links animals.html
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+//route 5 - links zookeepers.html
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+//route 6 - wildcard route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 app.post("/api/animals", (req, res) => {
   //req.body is where our incoming content will be
@@ -118,8 +139,6 @@ app.post("/api/animals", (req, res) => {
     res.json(animal);
   }
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);

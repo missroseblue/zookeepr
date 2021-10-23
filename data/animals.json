@@ -117,6 +117,16 @@
         "hungry"
       ],
       "id": "11"
+    },
+    {
+      "name": "Loki",
+      "species": "Dog",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "zany",
+        "goofy"
+      ],
+      "id": "12"
     }
   ]
 }
